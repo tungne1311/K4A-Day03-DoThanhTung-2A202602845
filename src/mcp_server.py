@@ -21,7 +21,8 @@ class MCPAcademicServer:
     def __init__(self, server_name: str = "vinuni-academic-mcp-server"):
         self.server_name = server_name
         self.version = "2026.1.0"
-        
+        self._request_id = 0   # Bộ đếm id request theo chuẩn JSON-RPC 2.0
+
     def list_tools(self) -> List[Dict[str, Any]]:
         """Trả về danh sách các Tools chuẩn giao thức MCP"""
         return TOOLS_SCHEMA
@@ -31,15 +32,50 @@ class MCPAcademicServer:
         [TASK 2.1] HỌC VIÊN HOÀN THIỆN HÀM THỰC THI TOOL TRÊN MCP SERVER
         Thực thi request gọi Tool theo chuẩn MCP JSON-RPC
         """
-        # --------------------------------------------------------------------------
-        # TODO 2.1: HỌC VIÊN HOÀN THIỆN HÀM GỌI TOOL CHUẨN MCP JSON-RPC
-        # 🎯 YÊU CẦU THỰC THI THUẬT TOÁN:
-        # 1. Gọi hàm dispatch_tool_call(tool_name, arguments) để lấy chuỗi JSON kết quả từ Tool Router.
-        # 2. Chuyển đổi chuỗi JSON kết quả thành Python Dictionary (dùng json.loads).
-        # 3. Đóng gói phản hồi và trả về Dict theo đúng chuẩn giao thức MCP JSON-RPC 2.0:
-        #    - Các trường bắt buộc: "jsonrpc": "2.0", "server": self.server_name, "tool": tool_name, "result": content
-        # --------------------------------------------------------------------------
-        return {}
+        # [ĐÃ HOÀN THÀNH TODO 2.1]
+        # Luồng xử lý: Request -> dispatch_tool_call() -> json.loads() -> đóng gói JSON-RPC 2.0
+        self._request_id += 1
+        arguments = arguments or {}
+
+        # Bước 0: Kiểm tra Tool có được công bố qua MCP hay không (JSON-RPC error -32601)
+        known_tools = {t.get("name") for t in self.list_tools()}
+        if tool_name not in known_tools:
+            return {
+                "jsonrpc": "2.0",
+                "id": self._request_id,
+                "server": self.server_name,
+                "tool": tool_name,
+                "isError": True,
+                "error": {
+                    "code": -32601,
+                    "message": f"Method not found: Tool '{tool_name}' không được MCP Server công bố."
+                },
+                "result": {
+                    "status": "UNKNOWN_TOOL",
+                    "message": f"Tool '{tool_name}' không tồn tại trên {self.server_name}."
+                }
+            }
+
+        # Bước 1: Ủy quyền thực thi xuống Tool Router (Execution Layer trong src/tools.py)
+        raw_result = dispatch_tool_call(tool_name, arguments)
+
+        # Bước 2: Chuyển chuỗi JSON kết quả thành Python Dictionary
+        try:
+            content = json.loads(raw_result)
+        except (json.JSONDecodeError, TypeError):
+            # Tool trả về text thuần -> vẫn bọc lại thành object để Agent đọc được
+            content = {"status": "RAW_TEXT", "message": str(raw_result)}
+
+        # Bước 3: Đóng gói phản hồi chuẩn giao thức MCP JSON-RPC 2.0
+        return {
+            "jsonrpc": "2.0",
+            "id": self._request_id,
+            "server": self.server_name,
+            "tool": tool_name,
+            "arguments": arguments,
+            "isError": content.get("status") in ("EXECUTION_ERROR", "UNKNOWN_TOOL"),
+            "result": content
+        }
 
 
 if __name__ == "__main__":

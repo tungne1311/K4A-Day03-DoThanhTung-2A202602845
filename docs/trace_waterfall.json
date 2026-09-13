@@ -1,29 +1,265 @@
 [
   {
+    "test_case_id": "TC01",
     "step": 1,
+    "timestamp": "2026-09-13T09:59:16",
     "query": "Chào bạn, bạn có thể giới thiệu quy chế học vụ cơ bản của Đại học VinUni không?",
     "action_type": "FINAL_ANSWER",
-    "thought": "Câu hỏi chung về quy chế học vụ, trả lời trực tiếp không cần gọi Tool.",
-    "output": "[Mock Agent Response]: Xin chào! Quy chế học vụ VinUni yêu cầu sinh viên tích lũy tối thiểu 120 tín chỉ và duy trì GPA trên 2.0 để tốt nghiệp.",
-    "latency_ms": 2845.93
+    "thought": "Đã có đủ thông tin, tổng hợp câu trả lời cuối cùng (không cần gọi thêm công cụ).",
+    "output": "Chào bạn! Đại học VinUni áp dụng quy chế học vụ theo tiêu chuẩn quốc tế (đặc biệt tham khảo từ các trường đại học hàng đầu thế giới như Ivy League). Dưới đây là các điểm cơ bản trong quy chế học vụ của VinUni:\n\n1. **Hệ thống tín chỉ (Credit System):** \n   - Chương trình đào tạo được xây dựng dựa trên hệ thống tín chỉ. \n   - Khối lượng học tập thông thường của một sinh viên toàn thời gian (Full-time) dao động từ 15 đến 18 tín chỉ mỗi học kỳ (tùy thuộc vào ngành học và năm học).\n\n2. **Đánh giá kết quả học tập (GPA - Grade Point Average):**\n   - VinUni sử dụng thang điểm chữ (A, B, C, D, F) tương ứng với thang điểm 4.0.\n   - Điểm trung bình tích lũy (Cumulative GPA - CGPA) được tính toán sau mỗi học kỳ để xét học bổng, cảnh cáo học vụ hoặc tốt nghiệp.\n\n3. **Cảnh cáo học vụ và Đình chỉ (Academic Warning & Dismissal):**\n   - Sinh viên cần duy trì mức điểm CGPA tối thiểu theo quy định của trường (thường là từ 2.0/4.0 trở lên, tùy thuộc vào số tín chỉ đã tích lũy).\n   - Nếu CGPA hoặc điểm học kỳ rơi xuống dưới ngưỡng quy định, sinh viên sẽ nhận cảnh cáo học vụ và cần làm việc với Cố vấn học tập (Academic Advisor) để cải thiện kết quả.\n\n4. **Quy định về chuyên cần (Attendance Policy):**\n   - VinUni đề cao sự chủ động và tham gia đầy đủ của sinh viên trên lớp. \n   - Việc nghỉ học không phép hoặc vắng mặt quá số buổi quy định trong syllabus của môn học có thể dẫn đến việc bị trừ điểm chuyên cần hoặc không được dự thi kết thúc học phần.\n\n5. **Liêm chính học thuật (Academic Integrity):**\n   - Đây là một trong những giá trị cốt lõi tại VinUni. Mọi hành vi gian lận thi cử, đạo văn (plagiarism) hay giả mạo đều bị xử lý rất nghiêm khắc theo chính sách kỷ luật của trường (từ khiển trách, điểm 0 cho bài tập/môn học đến kỷ luật buộc thôi học).\n\nNếu bạn cần tra cứu thông tin chi tiết cụ thể cho mã sinh viên của mình (như điểm số, Cố vấn học tập, lịch hẹn tư vấn...), hãy cung cấp mã sinh viên cho tôi nhé!",
+    "latency_ms": 3262.41,
+    "retry_wait_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
   },
   {
+    "test_case_id": "TC02",
     "step": 1,
+    "timestamp": "2026-09-13T09:59:17",
     "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
     "action_type": "TOOL_EXECUTION",
+    "thought": "Cần dữ liệu thời gian thực nên tôi gọi công cụ 'academic_query' với tham số: {\"student_id\": \"SV2026001\"}.",
     "tool_name": "academic_query",
     "arguments": {
       "student_id": "SV2026001"
     },
-    "observation": {},
-    "latency_ms": 799.12
+    "observation": {
+      "status": "SUCCESS",
+      "student_id": "SV2026001",
+      "data": {
+        "full_name": "Nguyễn Văn An",
+        "class": "AI-K4",
+        "gpa": 3.85,
+        "email": "an.nv@vinuni.edu.vn",
+        "status": "Đang học",
+        "advisor": "PGS.TS Nguyễn Văn A"
+      }
+    },
+    "mcp_jsonrpc": {
+      "jsonrpc": "2.0",
+      "id": 1,
+      "server": "vinuni-academic-mcp-server",
+      "isError": false
+    },
+    "latency_ms": 1039.18,
+    "retry_wait_ms": 0.0,
+    "mcp_latency_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
   },
   {
+    "test_case_id": "TC02",
     "step": 2,
+    "timestamp": "2026-09-13T09:59:18",
     "query": "Hãy tra cứu thông tin học vụ của sinh viên SV2026001.",
     "action_type": "FINAL_ANSWER",
-    "thought": "Tổng hợp kết quả từ MCP Server thành công.",
-    "output": "Chưa thể trả lời chi tiết do chưa nhận được dữ liệu từ MCP Server (hãy hoàn thành TODO 2.1).",
-    "latency_ms": 10.0
+    "thought": "Đã có đủ thông tin, tổng hợp câu trả lời cuối cùng (không cần gọi thêm công cụ).",
+    "output": "Dưới đây là thông tin học vụ của sinh viên **Nguyễn Văn An** (Mã sinh viên: **SV2026001**):\n\n* **Họ và tên:** Nguyễn Văn An\n* **Lớp:** AI-K4\n* **Trạng thái học tập:** Đang học\n* **Điểm trung bình tích lũy (GPA):** 3.85\n* **Cố vấn học tập:** PGS.TS Nguyễn Văn A\n* **Email:** an.nv@vinuni.edu.vn",
+    "latency_ms": 1206.02,
+    "retry_wait_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
+  },
+  {
+    "test_case_id": "TC03",
+    "step": 1,
+    "timestamp": "2026-09-13T09:59:19",
+    "query": "Đặt lịch hẹn tư vấn học vụ cho sinh viên SV2026001 với cố vấn PGS.TS Nguyễn Văn A vào lúc 14:00 ngày 15/09/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Cần dữ liệu thời gian thực nên tôi gọi công cụ 'academic_query' với tham số: {\"student_id\": \"SV2026001\"}.",
+    "tool_name": "academic_query",
+    "arguments": {
+      "student_id": "SV2026001"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "student_id": "SV2026001",
+      "data": {
+        "full_name": "Nguyễn Văn An",
+        "class": "AI-K4",
+        "gpa": 3.85,
+        "email": "an.nv@vinuni.edu.vn",
+        "status": "Đang học",
+        "advisor": "PGS.TS Nguyễn Văn A"
+      }
+    },
+    "mcp_jsonrpc": {
+      "jsonrpc": "2.0",
+      "id": 2,
+      "server": "vinuni-academic-mcp-server",
+      "isError": false
+    },
+    "latency_ms": 959.67,
+    "retry_wait_ms": 0.0,
+    "mcp_latency_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
+  },
+  {
+    "test_case_id": "TC03",
+    "step": 2,
+    "timestamp": "2026-09-13T09:59:20",
+    "query": "Đặt lịch hẹn tư vấn học vụ cho sinh viên SV2026001 với cố vấn PGS.TS Nguyễn Văn A vào lúc 14:00 ngày 15/09/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Cần dữ liệu thời gian thực nên tôi gọi công cụ 'schedule_appointment' với tham số: {\"datetime_str\": \"14:00 15/09/2026\", \"advisor_name\": \"PGS.TS Nguyễn Văn A\", \"student_id\": \"SV2026001\"}.",
+    "tool_name": "schedule_appointment",
+    "arguments": {
+      "datetime_str": "14:00 15/09/2026",
+      "advisor_name": "PGS.TS Nguyễn Văn A",
+      "student_id": "SV2026001"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "booking_id": "BK-SV2026001-99",
+      "student_id": "SV2026001",
+      "datetime": "14:00 15/09/2026",
+      "advisor": "PGS.TS Nguyễn Văn A",
+      "message": "Đặt lịch thành công cho sinh viên SV2026001 với PGS.TS Nguyễn Văn A vào lúc 14:00 15/09/2026."
+    },
+    "mcp_jsonrpc": {
+      "jsonrpc": "2.0",
+      "id": 3,
+      "server": "vinuni-academic-mcp-server",
+      "isError": false
+    },
+    "latency_ms": 982.28,
+    "retry_wait_ms": 0.0,
+    "mcp_latency_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
+  },
+  {
+    "test_case_id": "TC03",
+    "step": 3,
+    "timestamp": "2026-09-13T09:59:21",
+    "query": "Đặt lịch hẹn tư vấn học vụ cho sinh viên SV2026001 với cố vấn PGS.TS Nguyễn Văn A vào lúc 14:00 ngày 15/09/2026.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Đã có đủ thông tin, tổng hợp câu trả lời cuối cùng (không cần gọi thêm công cụ).",
+    "output": "Lịch hẹn tư vấn học vụ của bạn đã được đặt thành công! Dưới đây là chi tiết thông tin lịch hẹn:\n\n* **Mã sinh viên:** SV2026001\n* **Họ và tên:** Nguyễn Văn An\n* **Cố vấn học tập:** PGS.TS Nguyễn Văn A\n* **Thời gian:** 14:00 ngày 15/09/2026\n* **Mã đặt lịch (Booking ID):** BK-SV2026001-99\n\nBạn vui lòng có mặt đúng giờ để buổi tư vấn diễn ra hiệu quả nhất nhé!",
+    "latency_ms": 1281.92,
+    "retry_wait_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
+  },
+  {
+    "test_case_id": "TC04",
+    "step": 1,
+    "timestamp": "2026-09-13T09:59:22",
+    "query": "Sinh viên SV2026002 muốn gặp cố vấn học tập của mình. Hãy tra cứu xem cố vấn học tập của bạn ấy là ai, sau đó đặt lịch hẹn tư vấn với đúng cố vấn đó vào lúc 09:30 ngày 20/09/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Cần dữ liệu thời gian thực nên tôi gọi công cụ 'academic_query' với tham số: {\"student_id\": \"SV2026002\"}.",
+    "tool_name": "academic_query",
+    "arguments": {
+      "student_id": "SV2026002"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "student_id": "SV2026002",
+      "data": {
+        "full_name": "Trần Thị Bình",
+        "class": "AI-K4",
+        "gpa": 3.6,
+        "email": "binh.tt@vinuni.edu.vn",
+        "status": "Đang học",
+        "advisor": "TS. Lê Thị B"
+      }
+    },
+    "mcp_jsonrpc": {
+      "jsonrpc": "2.0",
+      "id": 4,
+      "server": "vinuni-academic-mcp-server",
+      "isError": false
+    },
+    "latency_ms": 921.66,
+    "retry_wait_ms": 0.0,
+    "mcp_latency_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
+  },
+  {
+    "test_case_id": "TC04",
+    "step": 2,
+    "timestamp": "2026-09-13T09:59:23",
+    "query": "Sinh viên SV2026002 muốn gặp cố vấn học tập của mình. Hãy tra cứu xem cố vấn học tập của bạn ấy là ai, sau đó đặt lịch hẹn tư vấn với đúng cố vấn đó vào lúc 09:30 ngày 20/09/2026.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Cần dữ liệu thời gian thực nên tôi gọi công cụ 'schedule_appointment' với tham số: {\"advisor_name\": \"TS. Lê Thị B\", \"datetime_str\": \"09:30 20/09/2026\", \"student_id\": \"SV2026002\"}.",
+    "tool_name": "schedule_appointment",
+    "arguments": {
+      "advisor_name": "TS. Lê Thị B",
+      "datetime_str": "09:30 20/09/2026",
+      "student_id": "SV2026002"
+    },
+    "observation": {
+      "status": "SUCCESS",
+      "booking_id": "BK-SV2026002-99",
+      "student_id": "SV2026002",
+      "datetime": "09:30 20/09/2026",
+      "advisor": "TS. Lê Thị B",
+      "message": "Đặt lịch thành công cho sinh viên SV2026002 với TS. Lê Thị B vào lúc 09:30 20/09/2026."
+    },
+    "mcp_jsonrpc": {
+      "jsonrpc": "2.0",
+      "id": 5,
+      "server": "vinuni-academic-mcp-server",
+      "isError": false
+    },
+    "latency_ms": 999.7,
+    "retry_wait_ms": 0.0,
+    "mcp_latency_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
+  },
+  {
+    "test_case_id": "TC04",
+    "step": 3,
+    "timestamp": "2026-09-13T09:59:24",
+    "query": "Sinh viên SV2026002 muốn gặp cố vấn học tập của mình. Hãy tra cứu xem cố vấn học tập của bạn ấy là ai, sau đó đặt lịch hẹn tư vấn với đúng cố vấn đó vào lúc 09:30 ngày 20/09/2026.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Đã có đủ thông tin, tổng hợp câu trả lời cuối cùng (không cần gọi thêm công cụ).",
+    "output": "Tôi đã tra cứu hồ sơ học tập của sinh viên Trần Thị Bình (Mã SV: SV2026002) và xác định cố vấn học tập của bạn ấy là **TS. Lê Thị B**. \n\nLịch hẹn tư vấn học vụ đã được đặt thành công:\n* **Mã sinh viên:** SV2026002 (Trần Thị Bình)\n* **Cố vấn học tập:** TS. Lê Thị B\n* **Thời gian:** 09:30 ngày 20/09/2026\n* **Mã đặt lịch:** BK-SV2026002-99",
+    "latency_ms": 1332.96,
+    "retry_wait_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
+  },
+  {
+    "test_case_id": "TC05",
+    "step": 1,
+    "timestamp": "2026-09-13T09:59:25",
+    "query": "Cho tôi xem bảng điểm và GPA của sinh viên mã số SV9999999.",
+    "action_type": "TOOL_EXECUTION",
+    "thought": "Cần dữ liệu thời gian thực nên tôi gọi công cụ 'academic_query' với tham số: {\"student_id\": \"SV9999999\"}.",
+    "tool_name": "academic_query",
+    "arguments": {
+      "student_id": "SV9999999"
+    },
+    "observation": {
+      "status": "NOT_FOUND",
+      "message": "Không tìm thấy dữ liệu sinh viên có mã 'SV9999999'"
+    },
+    "mcp_jsonrpc": {
+      "jsonrpc": "2.0",
+      "id": 6,
+      "server": "vinuni-academic-mcp-server",
+      "isError": false
+    },
+    "latency_ms": 944.32,
+    "retry_wait_ms": 0.0,
+    "mcp_latency_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
+  },
+  {
+    "test_case_id": "TC05",
+    "step": 2,
+    "timestamp": "2026-09-13T09:59:26",
+    "query": "Cho tôi xem bảng điểm và GPA của sinh viên mã số SV9999999.",
+    "action_type": "FINAL_ANSWER",
+    "thought": "Đã có đủ thông tin, tổng hợp câu trả lời cuối cùng (không cần gọi thêm công cụ).",
+    "output": "Không tìm thấy dữ liệu sinh viên có mã số **SV9999999** trong cơ sở dữ liệu của VinUni. Vui lòng kiểm tra lại mã sinh viên của bạn.",
+    "latency_ms": 1027.8,
+    "retry_wait_ms": 0.0,
+    "llm_provider": "GeminiProvider",
+    "llm_model": "gemini-flash-lite-latest"
   }
 ]
